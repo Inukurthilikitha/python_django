@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>First Image Example</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/mystyle.css' %}">
+</head>
+<body>
+	<h1>This is index.html</h1>
+	<a href="{% url 'first_app:render_data'%}">Click here to show render data</a>
+	<a href="{% url 'test' %}">Click here to go to home</a>
+	<a href="{% url 'admin:index' %}">Click here to go to home</a>
+	<br>
+	<img src="{% static 'images/puppy.jpg' %}">
+	<br>
+	{{insert_here.first}}
+</body>
+</html>

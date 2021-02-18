@@ -1,0 +1,8 @@
+{% extends "first_app/base.html" %}
+{% load my_extras %}
+    {% block html_block%}
+    	<h1>Welcome to index</h1>
+	    <h1>Hello and welcome to the site!</h1>
+	    <h3>{{text|cutout_another:'hello'}}</h3>
+	    <h3>{{number|add:'50'}}</h3>
+    {% endblock %}

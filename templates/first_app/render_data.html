@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>Render Data</title>
+	<link rel="stylesheet" href="{% static "css/mystyle.css" %}"/>
+</head>
+<body>
+	<h1>Rendering all the data from the test table</h1>
+	{%if test_table_data %}
+		<table>
+			<tr>
+				<th>Name</th>
+				<th>Added By</th>
+				<th>Added Date</th>
+			</tr>
+			{%for ttd in test_table_data %}
+				<tr>
+					<td>{{ttd.name}}</td>
+					<td>{{ttd.name}}</td>
+					<td>{{ttd.name}}</td>
+				</tr>
+			{%endfor%}
+		</table>
+	{%else%}
+		<p>No Data Found</p>
+	{% endif %}
+</body>
+</html>
