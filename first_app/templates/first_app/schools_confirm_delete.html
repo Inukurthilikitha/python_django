@@ -1,0 +1,11 @@
+{% extends "first_app/basic_app_base.html" %}
+
+{% block html_block%}
+	<h1>delete view</h1>
+	<h5>Are you sure you want to delete the school {{schools.school_name}}..?</h5>
+	<form method="POST">
+		{% csrf_token %}
+		<input class="btn btn-danger" type="Submit" name="Delete">
+		<a href="{% url 'first_app:school_list' %}">Cancel</a>
+	</form>
+{% endblock %}

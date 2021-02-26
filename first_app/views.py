@@ -1,13 +1,59 @@
 from django.shortcuts import render,redirect
+from django.urls import reverse_lazy
 from django.http import HttpResponse
-from first_app.models import Topic,Webpage,AccessRecord,Test_Table
+from first_app.models import Topic,Webpage,AccessRecord,Test_Table,Schools,Students # insted we can import all models as below
+#from first_app.models import *
 from .forms import * # imported for form model 
+from django.views.generic import (View,TemplateView,
+                                    ListView,DetailView,
+                                    CreateView,UpdateView,DeleteView)
+from . import models #should be after generic views is loaded
+ #importing for View - class based view , TemplateView - template view
 
 # you can create functions to load html pages for data rendering
 # we can use model forms , to show form without creating import
 # and another function that show form with manual code
 
-def index(request):
+class CBVview(View): #class based view
+    def get(self,request):
+        return HttpResponse("<h2><em>This is calling from class based view</em></h2>")
+
+class CBVTemplateView(TemplateView):
+    template_name = "index.html" #need to assign to template_name variable only
+    extra_context = {'injectme': 'basic injection','called_from':'CBV'} #for passsing arguments
+
+    #another way to pass arguments
+    # def get_context_data(self,**kwargs):# **kwargs also written as *args https://www.geeksforgeeks.org/args-kwargs-python/
+    #     extra_context = super().get_context_data(**kwargs)
+    #     extra_context['injectme'] = 'basic injection';
+    #     extra_context['called_from'] = 'CBV';
+    #     return extra_context
+
+class SchoolsListView(ListView):
+    #if ntg template_name is specified , it takes view name as context_object_name+"_list" i.e schools_list
+    context_object_name = "schools"
+    model = models.Schools
+
+class SchoolDetailView(DetailView):
+    context_object_name = "school_details" #should be used as variable containing all the data
+    model = models.Schools
+    template_name = 'first_app/school_detail_view.html'
+
+class SchoolCreateView(CreateView):
+    fields = ('school_name','principal_name','location')
+    model = models.Schools
+
+class SchoolUpdateView(UpdateView):
+    fields = ('school_name','principal_name','location')
+    model = models.Schools
+
+class SchoolDeleteView(DeleteView):
+    #create html file with model name + "_confirm_delete.html"
+    #schools_confirm_delete.html
+    model = models.Schools #  we can directly access data by using model name in lowercase
+    success_url = reverse_lazy('first_app:school_list')
+
+def index(request): #function based view
 	my_dict ={'insert_here':{'first':'This is render through view to html inner dict'}};
 	return render(request,'index.html',context=my_dict);
 
@@ -16,7 +62,7 @@ def first_app(request):
 	return render(request,'first_app/first_app.html',context=my_dict);
 
 def test(request):
-	return HttpResponse("<em>Hello Likitha!Welcome</em>")
+	return HttpResponse("<em>Hello Likitha!Welcome</em><br><h2>To see all details type first_app</hr>")
 
 def render_data(request):
 	table_data = Test_Table.objects.order_by('name')
@@ -24,7 +70,7 @@ def render_data(request):
 	return render(request,'first_app/render_data.html',my_dict)
 
 def form_data(request):
-	form = forms.FormExample()
+	form = FormExample()
 	if request.method == 'POST':
 		form = forms.FormExample(request.POST)
 		if form.is_valid():

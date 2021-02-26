@@ -20,6 +20,8 @@ from first_app import views
 
 urlpatterns = [
 	url(r'^$', views.test,name="test"),
+    url(r'^class_based_view', views.CBVview.as_view()),
+    url(r'^class_based_template_view', views.CBVTemplateView.as_view()),
 	url(r'^first_app/', include('first_app.urls')),
     url(r'^admin/', admin.site.urls),
 ]

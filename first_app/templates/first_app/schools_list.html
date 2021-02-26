@@ -1,0 +1,18 @@
+{% extends "first_app/basic_app_base.html" %}
+
+{% block html_block%}
+	<h1>welcome list view</h1>
+	<a class='btn btn-primary' href="{% url 'first_app:create_view'%}">Create School</a>
+	<ol>
+	{% for school in schools%}
+	<li>School : <a href="../detail_view/{{school.id}}">{{school.school_name}}</a>
+		<ul>
+			<li>Principal : {{school.principal_name}}</li>
+			<li>Location  : {{school.location}}</li>
+		</ul>
+		<a class='btn btn-warning' href="{% url 'first_app:update_view' pk=school.pk%}">Update</a>
+		<a class='btn btn-warning' href="{% url 'first_app:delete_view' pk=school.pk%}">Delete</a>
+	</li>
+	{% endfor%}
+	</ol>
+{% endblock %}
