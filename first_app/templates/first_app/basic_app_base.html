@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Base Html</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="navbar-nav">
+        <a class="navbar-brand" href="{% url 'test' %}">DJANGO</a>
+        <a class="nav-item nav-link" href="{% url 'admin:index' %}">Admin</a>
+        <a class="nav-item nav-link" href="{% url 'first_app:school_list' %}">Schools List</a>
+        
+      </div>
+    </nav>
+    <div class="container">
+    {% block html_block %}
+    <!-- Anything outside of this will be inherited if you use extend. -->
+    {% endblock %}
+    </div>
+</body>
+</html>

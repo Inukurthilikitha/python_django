@@ -7,12 +7,26 @@
 </head>
 <body>
 	<h1>This is index.html</h1>
-	<a href="{% url 'first_app:render_data'%}">Click here to show render data</a>
-	<a href="{% url 'test' %}">Click here to go to home</a>
-	<a href="{% url 'admin:index' %}">Click here to go to home</a>
-	<br>
+	<ol>
+		<li><a href="{% url 'first_app:render_data'%}">Click here to show render data</a><br></li>
+		<li><a href="{% url 'test' %}">Click here to go to home</a><br></li>
+		<li><a href="{% url 'admin:index' %}">Click here to go to Admin</a><br></li>
+		<li><a href="{% url 'first_app:school_list' %}">Click here to go to school list</a><br></li>
+		<li><a href="{% url 'first_app:render_data' %}">Click here to show render data</a><br></li>
+		<li><a href="{% url 'first_app:model_form' %}">Click here to go to Model form</a><br></li>
+		<li><a href="{% url 'first_app:first_app' %}">Click here to go to Index page render inside first_app under templates</a><br></li>
+		<li><a href="{% url 'first_app:other' %}">Click here to go to Menu</a><br></li>
+		<li><a href="{% url 'first_app:relative' %}">Click here to go to Relative URL</a><br></li>
+		<li><a href="{% url 'first_app:temp_index' %}">Click here to go to temp_index</a><br></li>
+		<li><a href="{% url 'first_app:userinfo' %}">Click here to go to register user</a><br></li>
+		<li><a href="{% url 'first_app:form_data' %}">Click here to go show form</a><br></li>
+	</ol>
+	
 	<img src="{% static 'images/puppy.jpg' %}">
 	<br>
+	{% if called_from == 'CBV' %}
+		{{injectme}}
+	{%endif%}
 	{{insert_here.first}}
 </body>
 </html>

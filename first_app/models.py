@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User #to use users from admin
-
+from django.urls import reverse
 # SuperUserInformation
 # User: likki
 # Email: likki@test.com
@@ -49,3 +49,22 @@ class UserProfileInfo(models.Model):
     def __str__(self):
         # Built-in attribute of django.contrib.auth.models.User !
         return self.user.username
+
+class Schools(models.Model):
+    school_name = models.CharField(max_length=256)
+    principal_name = models.CharField(max_length=256)
+    location = models.CharField(max_length=256)
+
+    def __str__(self):
+        return self.school_name
+
+    def get_absolute_url(self):
+        return reverse("first_app:school_detail",kwargs={'pk':self.pk})
+
+class Students(models.Model):
+    student_name = models.CharField(max_length=256)
+    age = models.PositiveIntegerField()    
+    school_name = models.ForeignKey(Schools,related_name='students',on_delete=models.CASCADE)  
+
+    def __str__(self):
+        return self.student_name 
